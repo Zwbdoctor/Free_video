@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+</head>
+
+<body>
+   {% load static %}
+  <!-- Bootstrap Core CSS -->
+   <!--<link rel="stylesheet" href="{static 'css/bootstrap.min.css'}">-->
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <!-- Owl Carousel Assets -->
+  <link href="/static/owl-carousel/owl.carousel.css" rel="stylesheet" />
+  <link href="/static/owl-carousel/owl.theme.css" rel="stylesheet" />
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="/static/font-awesome-4.4.0/css/font-awesome.min.css" type="text/css" />
+  <!-- jQuery -->
+  <script src="/static/js/jquery.js"></script>
+  <script type="text/javascript">
+        var $1 = $.noConflict(true);
+    </script>
+  <script src="/static/js/jquery-2.1.1.js"></script>
+  <!-- Core JavaScript Files -->
+  <script src="/static/js/bootstrap.min.js"></script>
+
+
+<div class="container" style="margin-left:20px;">
+{% if query %}
+    <h3>搜索结果如下：</h3>
+   {% for result in page.object_list %}
+    <div class="post wrap-vid">
+        <div class="zoom-container" style="height: 100px;">
+            <div class="zoom-caption">
+                <span>{{ result.object.vr_tag }}</span>
+                <a href="/video_home/single/?v_id={{ result.object.id }}">
+                    <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                </a>
+                <p>{{ result.object.vr_name }}</p>
+            </div>
+            <img src="/static/images/video_img/imgs{{ result.object.id }}.jpg" />
+        </div>
+        <div class="wrapper">
+            <h5 class="vid-name"><a href="#">{{ result.object.vr_name }}</a></h5>
+            <div class="info">
+                <h6>By <a href="#">{{ result.object.vr_director }}</a></h6>
+                <!--<span><i class="fa fa-calendar">{{ result.object.vr_release_time }} </span>-->
+                <!--<span><i class="fa fa-heart"></i>{{ result.object.vr_play_view }}</span>-->
+            </div>
+        </div>
+    </div>
+
+        <!--<img src="/static/images/video_img/imgs{{ result.object.id }}.jpg" alt="">-->
+        <!--<a href="/{{ result.object.id }}/">{{ result.object.vr_name }}</a><br/>-->
+        <!--<span>{{ result.object.vr_description }}</span><br>-->
+    {% empty %}
+        <p>啥也没找到</p>
+    {% endfor %}
+
+    {% if page.has_previous or page.has_next %}
+        <div>
+            {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; 上一页{% if page.has_previous %}</a>{% endif %}
+        |
+            {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}下一页 &raquo;{% if page.has_next %}</a>{% endif %}
+        </div>
+    {% endif %}
+{% endif %}
+</div>
+</body>
+</html>

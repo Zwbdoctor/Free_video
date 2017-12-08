@@ -1,0 +1,8 @@
+{{ object.vr_name }}
+{{ object.vr_tag }}
+{{ object.vr_id }}
+{{ object.vr_description }}
+
+
+
+

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>个人中心</title>
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <!-- Owl Carousel Assets -->
+  <link href="/static/owl-carousel/owl.carousel.css" rel="stylesheet" />
+  <link href="/static/owl-carousel/owl.theme.css" rel="stylesheet" />
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="/static/font-awesome-4.4.0/css/font-awesome.min.css" type="text/css" />
+  <!-- jQuery and Modernizr-->
+ <script src="/static/js/jquery.js"></script>
+		<script type="text/javascript">
+	var $1 = $.noConflict(true);
+</script>
+  <script src="/static/js/jquery-2.1.1.js"></script>
+  <!-- Core JavaScript Files -->
+  <script src="/static/js/bootstrap.min.js"></script>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+  <style type="text/css">
+
+    .main{
+			width: 1200px;
+			height: 800px;
+			margin: auto;
+		}
+
+    .content_right{
+        width: 898px;
+        height: 800px;
+        float:right;
+        background-color:#eeeeee;
+        overflow: hidden;
+    }
+
+    #person,#mix,#play,#collect,#up{
+        width:898px;
+        height: 800px;
+        /*background-color:green;*/
+        display: block;
+        overflow: hidden;
+    }
+    #mix{
+        /*background-color: yellow;*/
+        display: none;
+    }
+
+
+    #play{
+        /*background-color: #c1e2b3;*/
+        display: none;
+    }
+
+    #up{
+        /*background-color:#d58512 ;*/
+        display: none;
+    }
+
+    .content_left{
+        font-size: 22px;
+        /*margin-left: px;*/
+        width:300px;
+        height: 800px;
+        float: left;
+        background-color:#bbbbbb;
+
+    }
+
+
+    .list-group li{
+        border-left: none;
+        border-right: none;
+        height: 50px;
+        width: 300px;
+        text-align: center;
+       font-family: "楷体";
+       background-color:#bbbbbb;
+    }
+
+    .list-group-item:hover{
+      background-color: #FFFFFF;
+        font-size: 1.5em;
+        color: black;
+    }
+
+    .list-group a:hover{
+        /*font-size: 1.5em;*/
+        /*color:#000000;*/
+    }
+
+
+    .header{
+     width: 200px;
+     height: 300px;
+     margin: auto;
+    }
+
+    .header img{
+     width: 180px;
+     height: 180px;
+      margin-top: 20px;
+     margin-bottom: 20px;
+    }
+
+    .header p{
+     font-size: 20px;
+     font-family:"楷体";
+     margin-left: 10px;
+     color: #000000;
+    }
+   .showperson,.wans{
+    height: 250px;
+    width: 700px;
+    margin: auto;
+    /*background-color: green;*/
+   }
+
+
+    #lpn{
+        display: none;
+    }
+    .carton{
+        font-size: 16px;
+    }
+    footer{
+        clear:both;
+    }
+    </style>
+ </head>
+ <body>
+  <header>
+   <!--Top-->
+   <nav id="top">
+    <div class="container">
+     <div class="row">
+      <div class="col-md-6 col-sm-6">
+       <strong>Welcome to BONE!</strong>
+      </div>
+      <div class="col-md-6 col-sm-6">
+       <ul class="list-inline top-link link">
+        <li><a href="#"><i class="fa fa-home">当前用户:</i><span id="userac">{{ msg }}</span></a>
+            <a href="/video_home/login_out/"><span id="out" style="color:red;display:none">[退出]</span></a></li>
+        <script type="text/javascript">
+            $userac = $1("#userac").text();
+            if ($userac != "未登录"){
+                $1("#out").css("display","block");
+            }else {
+                $1("#out").css("display", "none");
+            }
+        </script>
+        <li><a href="index.html"><i class="fa fa-home"></i> 首页</a></li>
+        <li><a href="/video_home/contact/"><i class="fa fa-comments"></i> 联系我们</a></li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </nav>
+   <!--Navigation-->
+   <nav id="menu" class="navbar">
+    <div class="container">
+     <div class="navbar-header">
+      <span id="heading" class="visible-xs">Categories</span>
+      <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
+     </div>
+     <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+       <li><a href="index.html"><i class="fa fa-home"></i> 首页</a></li>
+       <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 帐号</a>
+        <div class="dropdown-menu">
+         <div class="dropdown-inner">
+          <ul class="nav navbar-nav navbar-right">
+           <li><a class="btn btn-link" data-toggle="modal" data-target="#login">登录</a></li>
+           <li><a class="btn btn-link" data-toggle="modal" data-target="#register">注册</a></li> &lt;
+          </ul>
+         </div>
+        </div> </li>
+       <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-play-circle-o"></i> 影视</a>
+        <div class="dropdown-menu">
+         <div class="dropdown-inner">
+          <ul class="list-unstyled">
+            {% for vc in video_category %}
+           <li><a href="/video_home/archive?video={{vc.id}}">{{ vc.vc_name }}</a></li> {% endfor %}
+          </ul>
+         </div>
+        </div> </li>
+       <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-list"></i> 类别</a>
+        <div class="dropdown-menu" style="margin-left: -203.625px;">
+         <div class="dropdown-inner">
+           {% for row in allrow %}
+          <ul class="list-unstyled">
+            {% for r in row %}
+           <li><a href="/video_home/archive?video_type={{r.id}}">{{r.vt_name}}</a></li> {% endfor %}
+          </ul> {% endfor %}
+         </div>
+        </div> </li>
+       <li><a href="/video_home/personal/"><i class="fa fa-cubes"></i> 个人中心</a></li>
+       <li><a href="/video_home/contact/"><i class="fa fa-envelope"></i> 联系我们</a></li>
+      </ul>
+     </div>
+    </div>
+   </nav>
+
+	  <div class="main">
+		   <div class="content_left">
+              <div class="header">
+                  <img src="/{{header_img}}" alt="个人头像" class="img-circle">
+                  <p>帐号：{{user.username}}</p>
+              </div>
+			 <div class="set">
+			   <ul class="list-group">
+				  <li id="li_fi"  class="list-group-item" style="color: black;"><img src="/static/images/video_img/per.png" style="margin-left: -50px;margin-top: -5px;margin-right: 15px"><a href="#">基本信息</a></li>
+				  <li id="li_se" class="list-group-item" style="color: black;"><img src="/static/images/video_img/pw.png" style="margin-left: -50px;margin-top: -5px;margin-right: 15px"><a href="#" >修改密码</a></li>
+				   <li id="li_th" class="list-group-item" style="color: black;"><img src="/static/images/video_img/play.png" style="margin-left: -50px;margin-top: -5px;margin-right: 15px"><a href="#" >播放记录</a></li>
+				  <li id="li_fo" class="list-group-item" style="color: black;"><img src="/static/images/video_img/love.png" style="margin-left: -50px;margin-top: -5px;margin-right: 15px"><a href="#">我的收藏</a></li>
+				   <li id="li_five" class="list-group-item" style="color: black;"><img src="/static/images/video_img/up.png" style="margin-left: -50px;margin-top: -5px;margin-right: 15px"><a href="#">上传视频</a></li>
+			   </ul>
+              </div>
+		   </div>
+		   <div class="content_right" >
+			   <div id="person">
+                   <h1 style="margin-top:50px; margin-left:10px;color:#101010;font-size: 20px">基本信息</h1>
+                   <hr>
+                   <div class="showperson">
+                        <form class="form-horizontal">
+                              <div class="form-group" style="margin-left: 15px">
+                                    <label for="inputEmail3" class="col-sm-2 control-label" style="margin-top: 10px;">用户名:</label>
+                                    <div class="col-sm-10"  style="margin-top: 15px;font-size: 22px">
+                                      <span id="inputname" >{{user.username}}</span>
+                                    </div>
+                                  </div>
+                              <div class="form-group" style="margin-left: 15px">
+                                <label  class="col-sm-2 control-label" style="margin-top: 10px;">Phone:</label>
+                              <div class="col-sm-10"  style="margin-top: 15px;font-size: 22px">
+                                  <span  >{{user.phone}}</span>
+                                </div>
+                              </div>
+                              <div class="form-group" style="margin-left: 15px">
+                               <label class="col-sm-2 control-label" style="margin-top: 10px">会员等级:</label>
+                                  <div class="col-sm-10"  style="margin-top: 15px;font-size: 22px">
+                                     <span >{{user.isVip}}</span>
+                                  </div>
+                              </div>
+
+                            </form>
+
+                   </div>
+                 <h1 style="margin-top:-10px; margin-left:10px;color:#101010;font-size: 20px">完善个人信息</h1>
+                      <br>
+                   <div class="wans">
+                       <form action="/video_home/upload_header/" method="post" enctype="multipart/form-data" style="margin-top: -20px">
+                           {%csrf_token%}<h1>{{upload_header}}</h1>
+                            <div class="form-group" style="margin-left: 120px">
+                            <label for="exampleInputFile">修改头像</label>
+                            <input type="file" id="exampleInputFile" name="header" >
+                                <input type="submit" value="上传" style="margin-left: 0px;width: 100px">
+                        </div>
+                       </form>
+                    <form class="form-horizontal" method="POST"  style="margin-top: -20px; ">
+                        <span style="color:#FD0005;font-size: 22px;margin-left: 250px">{{update_info}}</span>
+                          <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label" style="margin-top: 10px;">Email</label>
+                                <div class="col-sm-10">
+                                  <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                </div>
+                              </div>
+                         <div class="form-group">
+                           <label class="col-sm-2 control-label" style="margin-top: 10px">Age</label>
+                           <div class="col-sm-10">
+                             <input type="text" class="form-control" id="inputage" placeholder="age" name="age">
+                           </div>
+                         </div>
+                         <div class="form-group">
+                           <label for="inputgender" class="col-sm-2 control-label" style="margin-top: 10px">Gender</label>
+                           <div class="col-sm-10">
+                             <input type="text" class="form-control" id="inputgender" placeholder="Gender" name="Gender">
+                           </div>
+                         </div>
+                         <div class="form-group">
+                           <div class="col-sm-offset-2 col-sm-10">
+                             <button type="button" class="btn" style="width: 100px" id="update_info">确定</button>
+                           </div>
+                         </div>
+                       </form>
+                   </div>
+
+               </div>
+               <script>
+                   $1("#update_info").click(function () {
+                       $email=$1("#inputEmail3").val();
+                       $age=$1("#inputage").val();
+                       $gender=$1("#inputgender").val();
+                       if ($email!="" && $age!="" && $gender!=""){
+                             $1.post(
+                                 "/video_home/update_info/",
+                                 {
+                                     "email":$email,
+                                     "age":$age,
+                                     "gender":$gender
+                                 },
+                                 function (res) {
+//                                    $email.text(" ")
+//                                    $age.text(" ")
+//                                    $gender.text(" ")
+                                        alert(res)
+//                                     $1(".form-horizontal").html(res)
+                                 }
+                             )
+                       }
+                       else(
+                           alert("字段不能为空！")
+                       )
+                   })
+               </script>
+			   <div id="mix">
+                 <h1 style="margin-top:50px; margin-left:10px;color:#101010;font-size: 20px">修改密码</h1>
+                   <hr>
+                   <div class="showperson" style="margin-top: 60px">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label" style="margin-top: 10px;">旧密码：</label>
+                                    <div class="col-sm-10">
+                                      <input type="password" class="form-control" id="oldpass" name="oldpass">
+                                    </div>
+                                  </div>
+                              <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label" style="margin-top: 10px;">新密码：</label>
+                                <div class="col-sm-10">
+                                  <input type="password" class="form-control" name="newpass" value="" id="newpass">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                               <label class="col-sm-2 control-label" style="margin-top: 10px;width: 131px;margin-left: -10px">确认新密码：</label>
+                               <div class="col-sm-10">
+                                 <input type="password" class="form-control" name="confirm" value="" id="confirm">
+                               </div>
+                             </div>
+                            <button type="button" class="btn btn-danger" id="submitpwd" style="margin-left: 469px;margin-top: 50px;width: 100px">确定</button>
+                            <button type="submit" class="btn btn-danger" style="margin-left: 23px;margin-top: 50px;width: 100px" >取消</button>
+                        </form>
+                       <!--ajax实现网页的局部刷新-->
+                       <script>
+                         $1("#submitpwd").click(function () {
+                             var $oldpass=$1("#oldpass").val();
+                             var $newpass=$1("#newpass").val();
+                             var $confirm=$1("#confirm").val();
+                             if ($oldpass!="" && $newpass!="" && $confirm!=""){
+                                 $1.post(
+                                     "/video_home/update_pwd/",
+                                     {
+                                         "oldpass":$oldpass,
+                                         "newpass":$newpass,
+                                         "confirm":$confirm
+                                     },
+                                     function (res) {
+                                         alert(res)
+                                     }
+                                 )
+                             }
+                             else(
+                                 alert("字段不能为空！")
+                             )
+                         })
+                       </script>
+                       <script>
+                           $1("#oldpass").onblur(function () {
+                               alert("输入不能为空")
+                           });
+                           $1("#newpass").onblur(function () {
+                               alert("输入不能为空")
+                           });
+                           $1("#confirm").onblur(function () {
+                               alert("输入不能为空")
+                           });
+                       </script>
+
+                   </div>
+
+               </div>
+			   <div id="play">
+                   <h1 style="margin-top:50px; margin-left:10px;color:#101010;font-size: 20px">播放记录</h1>
+                   <span>{{infos}}</span>
+                   <hr>
+                   <div class="content" style="margin-left:50px">
+                       {% for vid in put %}
+                            {%for v in vid%}
+                            <div class="post wrap-vid">
+                             <div class="zoom-container" style="width: 140px;height: 78.36px;">
+                              <div class="zoom-caption">
+                               <span>{{v.vr_tag}}</span>
+                               <a href="/video_home/single/?v_id=219"> <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i> </a>
+                               <p>{{v.vr_name}}</p>
+                              </div>
+                              <img src="/static/images/video_img/imgs{{v.id}}.jpg" class="imgdisplay">
+                             </div>
+                             <div class="wrapper">
+                              <h5 class="vid-name"><a href="/video_home/single?v_id=219">{{v.vr_name}}</a></h5>
+                              <div class="info">
+                               <h6>By <a href="/video_home/single?v_id=219">{{v.vr_director}}</a></h6>
+                               <span><i class="fa fa-calendar"></i>{{v.vr_release_time}}</span>
+                               <span><i class="fa fa-heart"></i>未知</span>
+                              </div>
+                             </div>
+                            </div>
+                            {%endfor%}
+                       {%endfor%}
+
+                   </div>
+
+
+               </div>
+               <div id="collect">
+                    <h1 style="margin-top:50px; margin-left:10px;color:#101010;font-size: 20px">我的收藏</h1>
+                        <span>{{infos}}</span>
+                   <hr>
+                   <div class="content" style="margin-left:50px">
+                       {% for like in likes%}
+                            {%for li in like%}
+                        <div class="post wrap-vid">
+                         <div class="zoom-container" style="width: 140px;height: 78.36px;">
+                          <div class="zoom-caption">
+                           <span>{{li.vr_tag}}</span>
+                           <a href="/video_home/single/?v_id=219"> <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i> </a>
+                           <p>{{li.vr_name}}</p>
+                          </div>
+                          <img src="/static/images/video_img/imgs{{li.id}}.jpg" class="imgdisplay">
+                         </div>
+                         <div class="wrapper">
+                          <h5 class="vid-name"><a href="/video_home/single?v_id=219">{{li.vr_name}}</a></h5>
+                          <div class="info">
+                           <h6>By <a href="/video_home/single?v_id=219">{{li.vr_director}}</a></h6>
+                           <span><i class="fa fa-calendar"></i>{{li.vr_release_time}}</span>
+                           <span><i class="fa fa-heart"></i>未知</span>
+                          </div>
+                         </div>
+                        </div>
+                            {%endfor%}
+                       {%endfor%}
+                   </div>
+
+               </div>
+               <div id="up">
+                    <h1 style="margin-top:50px; margin-left:10px;color:#101010;font-size: 20px">视频上传</h1>
+                   <hr>
+                  <form action="/video_home/upload_video/" style="margin-left: 100px" enctype="multipart/form-data">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">视频名称</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="v_name">
+                      </div>
+                      <div class="form-group">
+                        <label for="inputfile">上传视频</label>
+                        <input type="file" id="inputfile">
+                        <p class="help-block">Example block-level help text here.</p>
+                      </div>
+                      <button type="submit" class="btn-default" style="border-radius: 2px">上传</button>
+                    </form>
+               </div>
+		   </div>
+		  <!--侧边栏-->
+		  <script type="text/javascript">
+			  $1("#li_fi").click(function () {
+			       $1("#person").css("display","block");
+				  $1("#mix").css("display","none");
+				   $1("#play").css("display","none");
+				   $1("#collect").css("display","none");
+				   $1("#up").css("display","none");
+
+              });
+
+			  $1("#li_se").click(function () {
+
+			      $1("#person").css("display","none");
+			      $1("#mix").css("display","block");
+				   $1("#play").css("display","none");
+				   $1("#collect").css("display","none");
+				   $1("#up").css("display","none");
+              });
+			  $1("#li_th").click(function () {
+
+			      $1("#person").css("display","none");
+			      $1("#mix").css("display","none");
+				   $1("#play").css("display","block");
+				   $1("#collect").css("display","none");
+				   $1("#up").css("display","none");
+              });
+
+			  $1("#li_fo").click(function () {
+			      $1("#person").css("display","none");
+			      $1("#mix").css("display","none");
+				   $1("#play").css("display","none");
+				   $1("#collect").css("display","block");
+				   $1("#up").css("display","none");
+              });
+
+			  $1("#li_five").click(function () {
+			      $1("#person").css("display","none");
+			      $1("#mix").css("display","none");
+				   $1("#play").css("display","none");
+				   $1("#collect").css("display","none");
+				   $1("#up").css("display","block");
+              });
+
+		  </script>
+
+   	</div>
+   <footer>
+    <div class="wrap-footer">
+     <div class="container">
+      <div class="row">
+       <aside class="col-footer col-md-3">
+        <h2 class="footer-title">About Us</h2>
+        <div class="textwidget">
+         Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac interdum magna porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt porta lorem vitae accumsan.
+         <br />
+         <br /> Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac interdum magna porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt porta lorem vitae accumsan.
+        </div>
+       </aside>
+       <aside class="col-footer col-md-3 widget_recent_entries">
+        <h2 class="footer-title">Recent Posts</h2>
+        <ul>
+         <li><a href="#">MOST VISITED COUNTRIES</a></li>
+         <li><a href="#">5 PLACES THAT MAKE A GREAT HOLIDAY</a></li>
+         <li><a href="#">PEBBLE TIME STEEL IS ON TRACK TO SHIP IN JULY</a></li>
+         <li><a href="#">STARTUP COMPANY’S CO-FOUNDER TALKS ON HIS NEW PRODUCT</a></li>
+        </ul>
+       </aside>
+       <aside class="col-footer col-md-3">
+        <h2 class="footer-title">NEWS LETTER</h2> If you want to receive our latest news send directly to your email, please leave your email address bellow. Subscription is free and you can cancel anytime.
+        <form action="#" method="post">
+         <input type="text" name="your-name" value="" size="40" placeholder="Your Email" />
+         <input type="submit" value="SUBSCRIBE" class="btn btn-3" />
+        </form>
+       </aside>
+       <aside class="col-footer col-md-3 wptt_TwitterTweets">
+        <h2 class="footer-title">Twitter</h2>
+        <ul class="fetched_tweets light">
+         <li class="tweets_avatar">
+          <div class="tweet_wrap">
+           <div class="wdtf-user-card ltr">
+            <div class="clear"></div>
+           </div>
+           <div class="tweet_data">
+             Check out 'NewsTube - Magazine Blog &amp; Video' on
+            <a href="#" target="_blank" rel="nofollow">#EnvatoMarket</a>
+            <a href="#" target="_blank" rel="nofollow">#themeforest</a>
+            <a href="http://t.co/jQV1MrQQKY" target="_blank" rel="nofollow">http://t.co/jQV1MrQQKY</a>
+           </div>
+           <br />
+           <div class="clear"></div>
+           <div class="times">
+            <em> <a href="#" target="_blank" title="Follow cactusthemes on Twitter [Opens new window]"> 2 months ago </a> </em>
+           </div>
+           <div class="clear"></div>
+          </div>
+          <div class="clear"></div> </li>
+         <li class="tweets_avatar">
+          <div class="tweet_wrap">
+           <div class="wdtf-user-card ltr">
+            <div class="clear"></div>
+           </div>
+           <div class="tweet_data">
+             Our latest theme 'Nano - Simple Magazine WordPress Theme' on
+            <a href="#" target="_blank" rel="nofollow">#EnvatoMarket</a>
+            <a href="http://twitter.com/search?q=%23themeforest" target="_blank" rel="nofollow">#themeforest</a>
+            <a href="http://t.co/IfZTbJTk06" target="_blank" rel="nofollow">http://t.co/IfZTbJTk06</a>
+           </div>
+           <br />
+           <div class="clear"></div>
+           <div class="times">
+            <em> <a href="#" target="_blank" title="Follow cactusthemes on Twitter [Opens new window]"> 5 months ago </a> </em>
+           </div>
+           <div class="clear"></div>
+          </div>
+          <div class="clear"></div> </li>
+        </ul>
+       </aside>
+      </div>
+     </div>
+    </div>
+    <div class="bottom-footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-md-6 col-sm-6 copyright">
+        <span>Copyright &copy; 2015.Company name All rights reserved.<a target="_blank" href="http://www.cssmoban.com/">网页模板</a></span>
+       </div>
+       <div class="col-md-6 col-sm-6 link">
+        <div class="menu-footer-menu-container">
+         <ul id="menu-footer-menu" class="menu list-inline">
+          <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+          <li><a href="#"><i class="fa fa-comments"></i> Contact</a></li>
+          <li><a href="#"><i class="fa fa-question-circle"></i> FAQ</a></li>
+         </ul>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </footer>
+   <!-- Footer -->
+   <!-- 注册模态框 -->
+   <div class="modal fade" id="register" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+     <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       <h4 class="modal-title">系统会员【快速注册】</h4>
+      </div>
+      <!--注册模态框--------------------------------------------------->
+      <div class="modal-body">
+       <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+         <div class="form-group">
+          <label style="padding-top: 20px" class="col-md-3 control-label">账号</label>
+          <div class="col-md-8">
+           <input type="email" class="form-control" id="raccount" placeholder="请输入您的账号名称" />
+          </div>
+         </div>
+         <div class="form-group">
+          <label style="padding-top: 20px" class="col-md-3 control-label">密码</label>
+          <div class="col-md-8">
+           <input type="password" class="form-control" id="rpasswd" placeholder="请输入您的登录密码" />
+          </div>
+         </div>
+         <div class="form-group">
+          <label style="padding-top: 20px;padding-right:0" class="col-md-3 control-label">确认密码</label>
+          <div class="col-md-8">
+           <input type="password" class="form-control" id="rrpasswd" placeholder="请确认您的登录密码" />
+          </div>
+         </div>
+         <div class="form-group">
+          <label style="padding-top: 20px;padding-right:0" class="col-md-3 control-label">手机号</label>
+          <div class="col-md-8">
+           <input type="text" class="form-control" id="rphone" placeholder="请仔细输入您的手机号" />
+          </div>
+         </div>
+         <div class="form-group">
+          <label style="padding-top: 20px" class="col-md-3 control-label">验证码</label>
+          <div class="col-md-8">
+           <input id="rmessage" type="password" class="form-control" name="message" placeholder="请输入您的验证码" />
+           <button type="button" id="rmyButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off"> 获取短信验证码 </button>
+          </div>
+         </div>
+         <script type="text/javascript">
+                //ajax 提交表单数据
+                $1("#rmyButton").click(function () {
+                    $phone = $1("#rphone").val();
+                    console.log($phone);
+                    $1.post(
+                        "/video_home/check/",
+                        {"phone": $phone},
+                    function (res) {
+                        alert(res);
+                    })
+                        })
+            </script>
+        </div>
+       </div>
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+       <button id="regist" type="button" class="btn btn-primary">注册</button>
+      </div>
+     </div>
+     <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+   <script type="text/javascript">
+            <!--ajax 提交表单数据 -->
+            $1("#regist").click(function () {
+                account = $1("#raccount").val();
+                rpasswd = $1("#rpasswd").val();
+                rrpasswd = $1("#rrpasswd").val();
+                rphone = $1("#rphone").val();
+                rcheckcode = $1("#rmessage").val();
+                $1.post(
+                    "/video_home/regist/",
+                    {
+                        "rphone":rphone,
+                        "raccount":account,
+                        "rpasswd":rpasswd,
+                        "rrpasswd":rrpasswd,
+                        "rcheckcode":rcheckcode
+                    },
+                    function (res) {
+                        alert(res)
+                        location.href="/video_home/personal/"
+
+                },
+                    function () {
+                        alert("请检查当前网络连接后重新注册")
+                    }
+                )
+            })
+       </script>
+   <!--注册模态框结束-->
+   <!--登录模态框-->
+   <div class="modal fade" id="login" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+     <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       <h4 class="modal-title">会员登录</h4>
+      </div>
+      <!--登录框开始------------------------------------------------>
+      <div style="color:#8c8c8c;padding-right: 12px" align="right">
+       <span id="login_ap">帐号密码登录</span>&nbsp;|&nbsp;
+       <span id="login_pn">手机快捷登录</span>
+      </div>
+      <script>
+                $("#login_ap").click(function () {
+                   $("#lap").css('display','block');
+                    $("#lpn").css('display','none')
+                });
+
+                $("#login_pn").click(function () {
+                   $("#lap").css('display','none');
+                    $("#lpn").css('display','block')
+                });
+          </script>
+      <div class="modal-body">
+       <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+         <!--登录表单部分-->
+         <div id="lap" style="display: block">
+          <div class="form-group">
+           <label style="padding-top: 20px" class="col-md-3 control-label">账号</label>
+           <div class="col-md-8">
+            <input id="laccount" type="text" class="form-control" name="login_username" placeholder="请输入您的账号" />
+           </div>
+          </div>
+          <div class="form-group">
+           <label style="padding-top: 20px" class="col-md-3 control-label">密码</label>
+           <div class="col-md-8">
+            <input id="lpasswd" type="password" class="form-control" name="login_password" placeholder="请输入您的登录密码" />
+           </div>
+          </div>
+          <div class="modal-footer">
+           <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+           <button id="tologin" type="button" class="btn btn-primary">登录</button>
+          </div>
+         </div>
+         <div id="lpn">
+          <!--这里是短信验证登录-->
+          <div class="form-group">
+           <label style="padding-top: 20px" class="col-md-3 control-label">手机</label>
+           <div class="col-md-8">
+            <input id="phone" type="text" class="form-control" name="phone" placeholder="请输入您的手机号" />
+           </div>
+          </div>
+          <div class="form-group">
+           <label style="padding-top: 20px" class="col-md-3 control-label">验证码</label>
+           <div class="col-md-8">
+            <input id="message" type="password" class="form-control" name="message" placeholder="请输入您的验证码" />
+            <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off"> 获取短信验证码 </button>
+           </div>
+          </div>
+          <div class="modal-footer">
+           <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+           <button id="tlogin" type="button" class="btn btn-primary">登录</button>
+          </div>
+         </div>
+         <!--ajax传递手机号-->
+         <script type="text/javascript">
+                //ajax 提交表单数据
+                $1("#myButton").click(function () {
+                    $phone = $1("#phone").val();
+                    console.log($phone);
+                    $1.post(
+                        "/video_home/check/",
+                        {"phone": $phone},
+                    function (res) {
+                        alert(res);
+                    })
+                        })
+             </script>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+   <script type="text/javascript">
+	//ajax 提交表单数据
+	// 帐号密码登录
+	$1("#tologin").click(function () {
+
+		$lpasswd = $1("#lpasswd").val();
+		$laccount = $1("#laccount").val();
+
+		$1.post(
+			"/video_home/login/",
+			{
+				"laccount":$laccount,
+				"lpasswd":$lpasswd,
+			},
+			function (res) {
+				alert(res);
+				location.href = "http://localhost:8000/video_home/"
+		},
+			function () {
+				alert("请检查当前网络连接，重新登录！")
+		}
+		)
+	});
+</script>
+<script type="text/javascript">
+	//手机号登录
+	$1("#tlogin").click(function () {
+
+		$checkcode = $1("#message").val();
+		$phone = $1("#phone").val();
+
+		$1.post(
+			"/video_home/login/",
+			{
+				"checkcode":$checkcode,
+				"phone":$phone
+			},
+			function (res) {
+				alert(res);
+				location.href = "http://localhost:8000/video_home/"
+		},
+			function () {
+				alert("请检查当前网络连接，重新登录！")
+		}
+		)
+	})
+</script>
+   <!--登录模态框结束-->
+   <!-- JS -->
+   <script src="owl-carousel/owl.carousel.js"></script>
+   <script>
+    $(document).ready(function() {
+      $("#owl-demo").owlCarousel({
+        autoPlay: 3000,
+        items : 5,
+        itemsDesktop : [1199,4],
+        itemsDesktopSmall : [979,4]
+      });
+
+    });
+    </script>
+  </header>
+ </body>
+</html>
