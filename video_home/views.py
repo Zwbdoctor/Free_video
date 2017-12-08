@@ -566,7 +566,6 @@ def comment(request):
 
 def personal(request):
     # 导航栏中的‘影视’数据
-
     video_category, allrow = tv_list()
     res = check_login(request)
     if res != False:
@@ -580,7 +579,16 @@ def personal(request):
                 video = vr_m.getMulti_obj(id=r.vl_video_id)
                 relike.append(video)
         else:
-            return render(request, "video_home/personal.html", {'msg': res, 'video_category': video_category, "allrow": allrow, "user": user, "infos":"暂无播放记录", "likes": like})
+            return render(request,
+                          "video_home/personal.html",
+                          {
+                              'msg': res,
+                              'video_category': video_category,
+                              "allrow": allrow,
+                              "user": user,
+                              "infos":"暂无播放记录",
+                              "likes": like
+                          })
 
         # 收藏电影
         likes = set(vl_m.getMulti_obj(vl_user=user.id, vl_isLike=True))
