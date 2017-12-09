@@ -10,12 +10,13 @@ cryptography==2.0.3
 cssselect==1.0.1
 decorator==4.1.2
 Django==1.11.6
+django-haystack==2.6.1
 future==0.16.0
 get==0.0.21
-haystack==0.42
 hyperlink==17.3.1
 idna==2.6
 incremental==17.5.0
+jieba==0.39
 lxml==3.8.0
 olefile==0.44
 parsel==1.2.0
@@ -45,4 +46,5 @@ setupfiles==0.0.50
 six==1.10.0
 urllib3==1.22
 w3lib==1.18.0
+Whoosh==2.7.4
 zope.interface==4.4.2
