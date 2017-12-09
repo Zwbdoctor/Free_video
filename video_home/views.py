@@ -13,7 +13,8 @@ from django.conf import settings
 如果获取成功执行 则 显示登录的一些视图或权限/
 如果 except 则视图函数按未登录显示相应信息
 '''
-######################################数据库管理对象区域#################################
+
+# #####################################数据库管理对象区域#################################
 # 创建用户管理器类对象
 User = models.User.u_m
 # 定义一级列表管理器类对象
@@ -30,16 +31,18 @@ lw_m = models.LeaveWord.lw_m
 vl_m = models.VideoLove.vl_m
 #定义视频上传管理器对象
 vu_m = models.VideoUp.vu_m
-###################################数据库管理对象区域结束#################################
+# ##################################数据库管理对象区域结束#################################
 
-###################################  检测函数区域  ###################################
-#登录检测   /    获取当前登录对象
+
+# #################################检测函数区域###################################
+# 登录检测   /    获取当前登录对象
 def check_login(request):
     try:
         login_user = request.session.get("login_user").username
         return login_user
     except:
         return False
+
 
 # 账号验证
 def aconcheck(account):
@@ -53,6 +56,7 @@ def aconcheck(account):
     else:
         return False
 
+
 # 密码验证
 def pswdcheck(password):
     '''
@@ -65,6 +69,7 @@ def pswdcheck(password):
     else:
         return False
 
+
 # 加密函数
 def sock(password):
 
@@ -73,7 +78,8 @@ def sock(password):
     password = m.hexdigest()
     return password
 
-#   邮箱验证
+
+# 邮箱验证
 def email_check(email):
     '''
     本网站仅支持qq邮箱
@@ -85,10 +91,11 @@ def email_check(email):
     else:
         return False
 
-###################################检测函数区域结束###################################
+# ##################################检测函数区域结束###################################
 
-##################################  导航栏相关函数 ##################################
-#影视中列表数据获取
+
+# #################################  导航栏相关函数 ##################################
+# 影视中列表数据获取
 def atype(id):
 
     moviceobjectlist = []
@@ -97,7 +104,8 @@ def atype(id):
         moviceobjectlist.append(movice_object)
     return moviceobjectlist
 
-#类别列表获取类
+
+# 类别列表获取类
 def ctype(a):
 
     objectlist = []
@@ -110,6 +118,7 @@ def ctype(a):
         objectlist.extend(a)
     return objectlist
 
+
 # 视频数据获取
 def tv_list():
 
@@ -121,9 +130,10 @@ def tv_list():
         allrow.append(row)
     return video_category,allrow
 
-#####################################导航栏相关函数结束###############################
+# ####################################导航栏相关函数结束###############################
 
-##################################### 视频主页页面   ##################################
+
+# #################################### 视频主页页面 ##################################
 def index(request):
 
     # 从数据库中获取轮播图的数据，并返回
@@ -170,7 +180,8 @@ def index(request):
                        ,'movies_left':movies_left,'movies_right':movies_right,'cartons_row1':cartons_row1,'cartons_row2':cartons_row2
                        ,'cartons_row3':cartons_row3,'variety_first':variety_first,'variety_others':variety_others,'mvs':mvs,'news':news,'mv_last':mv_last})
 
-############################################  联系我们页面   ########################################
+
+# #################################### 联系我们页面 #############################
 def contact(request):
 
     list1=vr_m.getMulti_obj()[0:3]
@@ -181,19 +192,20 @@ def contact(request):
         return render(request, "video_home/contact.html", {"msg": "未登录",'video_category':video_category,"allrow":allrow,"list1":list1,"list2":list2})
     return render(request, "video_home/contact.html", {"msg": res,'video_category':video_category,"allrow":allrow,"list1":list1,"list2":list2})
 
-##########################################  视频列表详情页   #######################################
+
+# ##################################### 视频列表详情页 ###############################
 def archive(request):
 
     video_category, allrow = tv_list()
     try:
         kw = request.GET["video"]
         allmovice = ctype(kw)
-        ac = "video"      #传回页面表示类型，根据类型选择相应处理代码
+        ac = "video"      # 传回页面表示类型，根据类型选择相应处理代码
     except:
         kw = request.GET["video_type"]
         allmovice = atype(kw)
         ac = "video_type"
-    #分页数
+    # 分页数
     long = len(allmovice)/5
     if int(long) == long:
         pages = int(long)
@@ -201,10 +213,10 @@ def archive(request):
         pages = int(long+1)
     pages = [i for i in range(1,pages+1)]
 
-    #页面下方页码导航栏
+    # 页面下方页码导航栏
     try:                                        #-#
-        p_satrt = int(request.GET["np"])         #  页脚导航栏点击跳转
-    except:                                      #  首页直接跳转
+        p_satrt = int(request.GET["np"])         # 页脚导航栏点击跳转
+    except:                                      # 首页直接跳转
         p_satrt = 0                             #-#
     try:                                        #-#
         incident = request.GET["incident"]       #
@@ -215,15 +227,15 @@ def archive(request):
                 p_satrt = 0                     #-#
         if incident == "right":                 #-#
             if p_satrt+5 <= long-5:              #
-                p_satrt = p_satrt + 5            #  页脚导航栏
-            else:                                #  向右翻页
+                p_satrt = p_satrt + 5            # 页脚导航栏
+            else:                                # 向右翻页
                 p_satrt = long-5                 #
         spage = p_satrt+1                       #-#
     except:
         spage = 0
     p_end = p_satrt+6
-    pages = pages[p_satrt:p_end]                #页脚导航栏显示页码范围
-    #分页内容
+    pages = pages[p_satrt:p_end]                # 页脚导航栏显示页码范围
+    # 分页内容
     try:
         page = int(request.GET["page"])
     except:
@@ -242,7 +254,8 @@ def archive(request):
     return render(request, "video_home/archive.html",
                    {"msg":res,"ac":ac,"movices":sendmovice,"music":all_2,"video":all_3,"kw":kw,"pages": pages, 'video_category': video_category, "allrow": allrow, "sp": pages[0]})
 
-###########################################  播放页  #####################################
+
+# ##################################### 播放页 ################################
 def single(request):
     '''
     介绍:这里是播放页面，用于播放每个视频，以及评论
@@ -263,7 +276,7 @@ def single(request):
 
     # 添加浏览记录
     vl=vl_m.getMulti_obj(vl_video_id=int(kw))
-    if len(vl) == 0 and res!=False:
+    if len(vl) == 0 and res != False:
         user_id = User.find_user(username=res).id
         video = vl_m.create_obj(vl_video_id=int(kw), vl_user=user_id, vl_isBrower=True, vl_isLike=False)
 
@@ -276,11 +289,12 @@ def single(request):
         video_y = "http://api.pu.tn/qq1/?url="+url
     if res == False:
         return render(request, "video_home/single.html",
-                      {"msg": "未登录","hot":hot,"movie":movie,"video_y":video_y,"actor":actor1,'movie_tag': movie_tag,'video_category': video_category, "allrow": allrow,"MV":top_mv,"News":top_news,"kw":kw})
+                      {"msg": "未登录", "hot": hot, "movie": movie, "video_y": video_y, "actor": actor1, 'movie_tag': movie_tag, 'video_category': video_category, "allrow": allrow, "MV": top_mv, "News": top_news, "kw": kw})
     return render(request, "video_home/single.html",
-                  {"msg": res,"hot":hot,"movie":movie,"video_y":video_y,"actor":actor1,'movie_tag':movie_tag,'video_category': video_category, "allrow": allrow,"MV":top_mv,"News": top_news,"kw":kw})
+                  {"msg": res, "hot": hot, "movie": movie, "video_y": video_y, "actor": actor1, 'movie_tag': movie_tag, 'video_category': video_category, "allrow": allrow,"MV": top_mv, "News": top_news, "kw": kw})
 
-######################################### 登录函数  #########################################
+
+# ######################################## 登录函数 ##############################
 @csrf_exempt
 def login(request):
     '''
@@ -324,8 +338,9 @@ def login(request):
         except:
             return HttpResponse("该账号或密码不存在，请重新输入!")
 
-#####################################   检测登录状态 ##################################
-#用户退出时清除session
+
+# #################################### 检测登录状态 #################################
+# 用户退出时清除session
 def login_out(request):
 
     try:
@@ -333,8 +348,9 @@ def login_out(request):
     except KeyError:
         pass
     return redirect("http://localhost:8000/video_home/")
-########################################### 短信随机验证码  #########################
-#短信验证码初始化
+# ########################################## 短信随机验证码  #########################
+
+# 短信验证码初始化
 # 服务地址
 sms_host = "sms.yunpian.com"
 voice_host = "voice.yunpian.com"
@@ -343,6 +359,7 @@ version = "v2"  # 版本号
 user_get_uri = "/" + version + "/user/get.json"     # 查账户信息的URI
 sms_send_uri = "/" + version + "/sms/single_send.json"      # 智能匹配模板短信接口的URI
 sms_tpl_send_uri = "/" + version + "/sms/tpl_single_send.json"  # 模板短信接口的URI
+
 
 # 本地随机生成验证码，验证码内容和长度可自由设置
 def check_code():
@@ -368,6 +385,7 @@ def get_user_info(apikey):
     conn.close()
     return response_str
 
+
 # 通用接口发短信
 def send_sms(apikey, text, mobile):
 
@@ -383,7 +401,8 @@ def send_sms(apikey, text, mobile):
     conn.close()
     return response_str
 
- # 模板接口发短信
+
+# 模板接口发短信
 def tpl_send_sms(apikey, tpl_id, tpl_value, mobile):
 
     params = urllib.parse.urlencode({
@@ -403,7 +422,8 @@ def tpl_send_sms(apikey, tpl_id, tpl_value, mobile):
     conn.close()
     return response_str
 
- # 通用接口发短信
+
+# 通用接口发短信
 def send_voice_sms(apikey, code, mobile):
 
     params = urllib.parse.urlencode({'apikey': apikey, 'code': code, 'mobile': mobile})
@@ -419,7 +439,7 @@ def send_voice_sms(apikey, code, mobile):
     return response_str
 
 
-#短信验证码发送
+# 短信验证码发送
 @csrf_exempt
 def check(request):
     '''
@@ -427,17 +447,17 @@ def check(request):
     '''
     print("kaishifasong")
     phone = request.POST['phone']
-    apikey = "eaf68b3daa9c0df77f789480df2ea90d"  #短信平台用户api
-    mobile = phone  #发送目标手机号
-    code = check_code()     #发送内容
-    request.session["checkcode"] = code   #加入session会话
+    apikey = "eaf68b3daa9c0df77f789480df2ea90d"  # 短信平台用户api
+    mobile = phone  # 发送目标手机号
+    code = check_code()     # 发送内容
+    request.session["checkcode"] = code   # 加入session会话
     tpl_id = 1  # 对应的模板内容为：您的验证码是#code#【#company#】
     tpl_value = {'#code#': code, '#company#': '云片网'}
     print(tpl_send_sms(apikey, tpl_id, tpl_value, mobile))
     return HttpResponse("验证码已成功发送！")
 
 
-##############################   接收前端界面ajax登录传递的账户数据   ##################
+# ############################# 接收前端界面ajax登录传递的账户数据 ##################
 @csrf_exempt
 def regist(request):
     '''
@@ -485,7 +505,7 @@ def regist(request):
             return HttpResponse("congratulation！注册成功^-^")
 
 
-######################################   上传头像     ################################
+# ##################################### 上传头像 ################################
 def upload_header(request):
     """
     介绍:用户上传头像功能
@@ -498,7 +518,7 @@ def upload_header(request):
     if res != False:
         header = request.FILES["header"]
         f_path="static/images/video_img/"+res+".jpg"
-        #图片文件存入本地
+        # 图片文件存入本地
         with open(settings.BASE_DIR+"/video_home/"+f_path,"wb") as f:
             for block in header.chunks():    # 将文件分割成小块，逐块写入
                 f.write(block)
@@ -508,7 +528,8 @@ def upload_header(request):
         return render(request, "video_home/personal.html",{'msg': res, 'video_category': video_category, "allrow": allrow,"user":user,"header_img":user.headerImg,"upload_header": "上传成功！"})
     return render(request, "video_home/personal.html",{'msg': '未登录', 'video_category': video_category, "allrow": allrow,"header_img":"static/images/video_img/user.jpg"})
 
-######################################    更改密码    ########################################
+
+# ##################################### 更改密码 ##################################
 def update_pwd(request):
     """
     介绍:用户修改密码
@@ -534,7 +555,8 @@ def update_pwd(request):
     User.updateinfo_user(username=user.username, password=newpass)
     return HttpResponse("修改成功！")
 
-#############################   评论   ############################################
+
+# ################################## 评论 ###################################
 @csrf_exempt
 def comment(request):
     '''
@@ -562,8 +584,7 @@ def comment(request):
         return HttpResponse("尚未登录，请前往登录")
 
 
-##########################################################################################################
-
+# ################################################################################
 def personal(request):
     # 导航栏中的‘影视’数据
     video_category, allrow = tv_list()
@@ -607,7 +628,7 @@ def personal(request):
                   {'msg': '未登录', 'video_category': video_category, "allrow": allrow,"header_img":"static/images/video_img/user.jpg"})
 
 
-##########################   个人信息展示   ##############################
+# #########################   个人信息展示   ##############################
 def update_info(request):
     """
     #个人信息的完善
@@ -625,6 +646,7 @@ def update_info(request):
     Gender = request.POST["gender"]
     user = User.updateinfo_user(username=res,email=email,age=age,gender=Gender)
     return HttpResponse("恭喜您，资料完善成功！")
+
 
 def upload_video(request):
     """
@@ -653,7 +675,7 @@ def upload_video(request):
                        "upload_video": "上传失败！"})
 
 
-################################################################
+# ###############################################################
 def col_mylove(request):
     try:
         # 获取登录用户
@@ -685,15 +707,14 @@ def show_userinfo(request):
         return render(request,"video_home/personal/",{})
 
 
-
-################################ 收藏视频 ############################
+# ############################### 收藏视频 ############################
 @csrf_exempt
 def show_have(request):
-    #得到前端传的数据
+    # 得到前端传的数据
     video_id=request.POST["video_id"]
     print("****************************************")
     print (type(video_id))
-    #得到登录的session对象
+    # 得到登录的session对象
     u=request.session.get("login_user")
     video = vl_m.getMulti_obj(vl_video_id=int(video_id),vl_isLike=True)
     print(video)

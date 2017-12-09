@@ -1,18 +1,13 @@
 from __future__ import unicode_literals
-
 from django.db import models
-
 from . import model_manager
-
 from datetime import datetime
-
 '''
     项目描述：在线视频播放网站
 '''
 
 
 # Create your models here.
-
 class User(models.Model):
     '''
         创建用户类

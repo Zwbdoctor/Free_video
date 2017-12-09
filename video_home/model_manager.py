@@ -1,6 +1,5 @@
 '''
-    项目名：Beone
-    项目描述：在线视频播放网站
+    项目：在线视频播放网站
     文件描述：管理器对象模块
 '''
 from django.db import models
@@ -46,29 +45,36 @@ class Base(models.Manager):
     def getMulti_obj(self, **kwargs):
         return self.filter(**kwargs)
 
+
 # 一级列表管理器类
 class VideoCategoryManager(Base):
     pass
+
 
 # 二级列表管理器类
 class VideoTypeManager(Base):
     pass
 
+
 # 三级列表管理器类
 class VideoResourceManager(Base):
     pass
+
 
 # 留言板管理器类
 class MessageBoardManager(Base):
     pass
 
+
 # 视频收藏管理器
 class VideoLoveManger(Base):
     pass
 
+
 # 留言管理器
 class ContentManger(Base):
     pass
+
 
 # 视频上传类管理器
 class VideoUpManager(Base):
