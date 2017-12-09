@@ -39,7 +39,7 @@ class User(models.Model):
     gender = models.CharField(max_length=50)
     # 创建管理器对象
     u_m = model_manager.UserManager()
-    #  注册时间
+    # 注册时间
     regist_date = models.DateTimeField(default=datetime.now())
 
 
@@ -63,7 +63,8 @@ class VideoType(models.Model):
     id = models.AutoField(primary_key=True)
     # 类型名称
     vt_name = models.CharField(max_length=50)
-    # 创建逻辑外键，与VideoCategory类建立联系，即VideoType.videocategory_id = VideoCategory.id
+    # 创建逻辑外键，与VideoCategory类建立联系，
+    # 即VideoType.videocategory_id = VideoCategory.id
     videocategory_id = models.IntegerField()
     # 创建管理器对象
     vt_m = model_manager.VideoTypeManager()
