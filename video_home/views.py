@@ -8,11 +8,11 @@ from . import models
 from datetime import datetime
 from django.conf import settings
 # Create your views here.
-'''
+"""
 视图函数中请在每个跳转页面前添加 try 获取会话中的登录信息/
 如果获取成功执行 则 显示登录的一些视图或权限/
 如果 except 则视图函数按未登录显示相应信息
-'''
+"""
 
 # #####################################数据库管理对象区域#################################
 # 创建用户管理器类对象
@@ -46,9 +46,9 @@ def check_login(request):
 
 # 账号验证
 def aconcheck(account):
-    '''
+    """
     以字母开头，字母数字下划线组成的4-14位字符串
-    '''
+    """
     patten = re.compile('^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){4,14}$')
     match = patten.findall(account)
     if match:
@@ -59,9 +59,9 @@ def aconcheck(account):
 
 # 密码验证
 def pswdcheck(password):
-    '''
+    """
     6-18位字母数字或下划线组合字符串
-    '''
+    """
     patten = re.compile('^(\w){6,18}$')
     match = patten.findall(password)
     if match:
@@ -81,9 +81,9 @@ def sock(password):
 
 # 邮箱验证
 def email_check(email):
-    '''
+    """
     本网站仅支持qq邮箱
-    '''
+    """
     pattern = re.compile("^(\w){6,18}@qq\.com$")
     match = pattern.findall(email)
     if match:
@@ -138,7 +138,7 @@ def index(request):
 
     # 从数据库中获取轮播图的数据，并返回
     carousels = vr_m.all()[:7]
-    video_category, allrow=tv_list()
+    video_category, allrow = tv_list()
     # 随机推荐（五部视频）
     video_random = vr_m.exclude(vr_tag='音乐').order_by('?')[:5]
     video_random_left = video_random[:1]
@@ -170,15 +170,15 @@ def index(request):
     res = check_login(request)
     if res == False:
         return render(request, "video_home/index.html",
-                      {"msg": "未登录", 'carousels': carousels, 'video_category': video_category,"allrow":allrow,'video_random_left':video_random_left,'video_random_right1':video_random_right1
-                       ,'video_random_right2':video_random_right2,'movies_first':movies_first,'movies_second':movies_second
-                       ,'movies_left':movies_left,'movies_right':movies_right,'cartons_row1':cartons_row1,'cartons_row2':cartons_row2
-                       ,'cartons_row3':cartons_row3,'variety_first':variety_first,'variety_others':variety_others,'mvs':mvs,'news':news,'mv_last':mv_last})
+                      {"msg": "未登录", 'carousels': carousels, 'video_category': video_category, "allrow": allrow, 'video_random_left': video_random_left, 'video_random_right1': video_random_right1
+                       , 'video_random_right2': video_random_right2, 'movies_first': movies_first, 'movies_second': movies_second
+                       , 'movies_left': movies_left, 'movies_right': movies_right, 'cartons_row1': cartons_row1, 'cartons_row2': cartons_row2
+                       , 'cartons_row3': cartons_row3, 'variety_first': variety_first, 'variety_others': variety_others, 'mvs': mvs, 'news': news, 'mv_last': mv_last})
     return render(request, "video_home/index.html",
-                        {"msg": res,'carousels':carousels,'video_category':video_category,"allrow":allrow,'video_random_left':video_random_left,'video_random_right1':video_random_right1
-                       ,'video_random_right2':video_random_right2,'movies_first':movies_first,'movies_second':movies_second
-                       ,'movies_left':movies_left,'movies_right':movies_right,'cartons_row1':cartons_row1,'cartons_row2':cartons_row2
-                       ,'cartons_row3':cartons_row3,'variety_first':variety_first,'variety_others':variety_others,'mvs':mvs,'news':news,'mv_last':mv_last})
+                        {"msg": res, 'carousels': carousels, 'video_category': video_category, "allrow": allrow, 'video_random_left': video_random_left, 'video_random_right1': video_random_right1,
+                         'video_random_right2': video_random_right2, 'movies_first': movies_first, 'movies_second': movies_second,
+                         'movies_left': movies_left, 'movies_right': movies_right, 'cartons_row1': cartons_row1, 'cartons_row2': cartons_row2,
+                         'cartons_row3': cartons_row3, 'variety_first': variety_first, 'variety_others': variety_others, 'mvs': mvs, 'news': news, 'mv_last': mv_last})
 
 
 # #################################### 联系我们页面 #############################
@@ -189,8 +189,8 @@ def contact(request):
     video_category, allrow = tv_list()
     res = check_login(request)
     if res == False:
-        return render(request, "video_home/contact.html", {"msg": "未登录",'video_category':video_category,"allrow":allrow,"list1":list1,"list2":list2})
-    return render(request, "video_home/contact.html", {"msg": res,'video_category':video_category,"allrow":allrow,"list1":list1,"list2":list2})
+        return render(request, "video_home/contact.html", {"msg": "未登录",'video_category': video_category, "allrow": allrow, "list1": list1, "list2": list2})
+    return render(request, "video_home/contact.html", {"msg": res, 'video_category': video_category, "allrow": allrow, "list1": list1, "list2": list2})
 
 
 # ##################################### 视频列表详情页 ###############################
@@ -257,20 +257,20 @@ def archive(request):
 
 # ##################################### 播放页 ################################
 def single(request):
-    '''
+    """
     介绍:这里是播放页面，用于播放每个视频，以及评论
     作用:展示点击播放页面及评论页面提交
-    '''
+    """
     res = check_login(request)
     video_category, allrow = tv_list()
     kw = request.GET["v_id"]
     movie = vr_m.getOne_obj(id=kw)
-    m_name=movie.vr_name
+    m_name = movie.vr_name
     hot = lw_m.getMulti_obj(video_name=m_name).order_by("id")
-    actor= movie.vr_actor
-    actor1=actor.split(" ")
+    actor = movie.vr_actor
+    actor1 = actor.split(" ")
     tag = movie.vr_tag
-    movie_tag =vr_m.getMulti_obj(vr_tag=tag).order_by("?")[0:3]
+    movie_tag = vr_m.getMulti_obj(vr_tag=tag).order_by("?")[0:3]
     top_mv = vr_m.getMulti_obj(vr_tag="音乐[MV]").order_by("?")[0:3]
     top_news = vr_m.getMulti_obj(vr_tag__contains="资讯").order_by("?")[0:3]
 
@@ -297,12 +297,12 @@ def single(request):
 # ######################################## 登录函数 ##############################
 @csrf_exempt
 def login(request):
-    '''
+    """
     介绍:这里是登录函数的处理以及数据提交并且还有数据检测是否合法
     作用:1.检测登录账号密码是否合法
         2.数据库检测账号密码是否在数据库存在
         3.将前台数据传递到后台处理后再将相应信息展示给前端
-    '''
+    """
     # 判断是否为手机号登录
     try:
         bcheckcode = request.POST['checkcode']  # 获取浏览器端发送的验证码
@@ -423,6 +423,7 @@ def tpl_send_sms(apikey, tpl_id, tpl_value, mobile):
     return response_str
 
 
+"""
 # 通用接口发短信
 def send_voice_sms(apikey, code, mobile):
 
@@ -437,14 +438,15 @@ def send_voice_sms(apikey, code, mobile):
     response_str = response.read()
     conn.close()
     return response_str
+"""
 
 
 # 短信验证码发送
 @csrf_exempt
 def check(request):
-    '''
+    """
     通过调用上面的函数来实现短信验证码的功能
-    '''
+    """
     print("kaishifasong")
     phone = request.POST['phone']
     apikey = "eaf68b3daa9c0df77f789480df2ea90d"  # 短信平台用户api
@@ -460,7 +462,7 @@ def check(request):
 # ############################# 接收前端界面ajax登录传递的账户数据 ##################
 @csrf_exempt
 def regist(request):
-    '''
+    """
     介绍:这是注册的信息处理
     功能:1.检测注册账号是否在数据库中存在
         2.检测注册账号密码的合法性
@@ -469,7 +471,7 @@ def regist(request):
         5.将返回信息返回给前端页面
     :param request:
     :return:
-    '''
+    """
     # 获取传递的账号密码
     account = request.POST["raccount"]
     rphone = request.POST["rphone"]
@@ -559,16 +561,13 @@ def update_pwd(request):
 # ################################## 评论 ###################################
 @csrf_exempt
 def comment(request):
-    '''
+    """
     介绍:视频下面的评论
     功能:1.将视频下面的评论内容和当前登录用户比对
         2.将内容存储到数据库
         3.如果用户没有登录不允许评论
-
-    :param request:
-    :return:
-    '''
-    video_id=int(request.POST["id"])
+    """
+    video_id = int(request.POST["id"])
     name = request.POST["name"]
     email = request.POST['email']
     message = request.POST['information']
@@ -594,6 +593,7 @@ def personal(request):
         user = User.find_user(username=res)
         remark = set(vl_m.filter(vl_user=user.id, vl_isBrower=True).order_by("?")[0:5])
         relike=[]
+        like = []
         if remark != "":
             for r in remark:
                 # 搜索电影
@@ -613,7 +613,6 @@ def personal(request):
 
         # 收藏电影
         likes = set(vl_m.getMulti_obj(vl_user=user.id, vl_isLike=True))
-        like = []
         if likes !="":
             for li in likes:
                 # 搜索电影
@@ -631,7 +630,7 @@ def personal(request):
 # #########################   个人信息展示   ##############################
 def update_info(request):
     """
-    #个人信息的完善
+    个人信息的完善
     :param request:
     :return:
     """
