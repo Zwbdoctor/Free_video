@@ -17,7 +17,7 @@ hyperlink==17.3.1
 idna==2.6
 incremental==17.5.0
 jieba==0.39
-lxml==3.8.0
+lxml==4.6.3
 olefile==0.44
 parsel==1.2.0
 pefile==2017.11.5
